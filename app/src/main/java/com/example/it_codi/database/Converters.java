@@ -3,11 +3,14 @@ package com.example.it_codi.database;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import androidx.room.ProvidedTypeConverter;
 import androidx.room.TypeConverter;
 
 import java.io.ByteArrayOutputStream;
 
-public class Converter {
+@ProvidedTypeConverter
+public class Converters {
+
     // Bitmap -> ByteArray 변환
     @TypeConverter
     public byte[] bitmapToByteArray( Bitmap bitmap ) {
