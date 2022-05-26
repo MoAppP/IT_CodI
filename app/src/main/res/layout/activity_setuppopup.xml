@@ -19,25 +19,41 @@
             android:orientation="vertical" >
 
             <EditText
+                android:id="@+id/height_et"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:hint="키"/>
             <EditText
+                android:id="@+id/weight_et"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:hint="몸무게"/>
 
             <RadioGroup
+                android:id="@+id/radioGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <RadioButton
+                    android:id="@+id/radioBtn_1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="봄"/>
                 <RadioButton
+                    android:id="@+id/radioBtn_2"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="여름"/>
                 <RadioButton
+                    android:id="@+id/radioBtn_3"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="가을"/>
+                <RadioButton
+                    android:id="@+id/radioBtn_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="겨울"/>
 
             </RadioGroup>
 
@@ -87,7 +103,8 @@
                 android:id="@+id/close_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:clickable="true"/>
+                android:clickable="true"
+                android:text="저장"/>
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
