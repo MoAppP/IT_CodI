@@ -2,4 +2,8 @@
     <string name="app_name">IT_CodI</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="american">아메카지</string>
+    <string name="city">시티보이</string>
+    <string name="dandy">댄디</string>
+    <string name="casual">캐주얼</string>
 </resources>

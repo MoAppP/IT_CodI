@@ -29,75 +29,37 @@
                 android:layout_height="wrap_content"
                 android:hint="몸무게"/>
 
-            <RadioGroup
-                android:id="@+id/radioGroup"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <RadioButton
-                    android:id="@+id/radioBtn_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="봄"/>
-                <RadioButton
-                    android:id="@+id/radioBtn_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="여름"/>
-                <RadioButton
-                    android:id="@+id/radioBtn_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="가을"/>
-                <RadioButton
-                    android:id="@+id/radioBtn_4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="겨울"/>
-
-            </RadioGroup>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
                 <CheckBox
-                    android:id="@+id/checkbox_1"
+                    android:id="@+id/checkbtn_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"/>
+                    android:layout_weight="1"
+                    android:text="아메카지"/>
                 <CheckBox
-                    android:id="@+id/checkbox_2"
+                    android:id="@+id/checkbtn_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/checkbox_1"/>
+                    android:layout_weight="1"
+                    android:text="시티보이"/>
                 <CheckBox
-                    android:id="@+id/checkbox_3"
+                    android:id="@+id/checkbtn_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/checkbox_2"/>
+                    android:layout_weight="1"
+                    android:text="댄디"/>
                 <CheckBox
-                    android:id="@+id/checkbox_4"
+                    android:id="@+id/checkbtn_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/checkbox_1"
-                    app:layout_constraintStart_toStartOf="parent"/>
-                <CheckBox
-                    android:id="@+id/checkbox_5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="@id/checkbox_2"
-                    app:layout_constraintStart_toStartOf="@id/checkbox_4"/>
-                <CheckBox
-                    android:id="@+id/checkbox_6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="@id/checkbox_3"
-                    app:layout_constraintStart_toStartOf="@id/checkbox_5"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_weight="1"
+                    android:text="캐주얼"/>
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/close_btn"

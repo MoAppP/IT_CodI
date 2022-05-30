@@ -20,8 +20,30 @@ public interface ClothesDao {
     @Query("SELECT * FROM clothes WHERE type=:type")
     List<Clothes> findByType(String type);
 
-    @Query("SELECT * FROM clothes WHERE size=:size")
-    List<Clothes> findBySize(String size);
+    @Query("SELECT * FROM clothes WHERE spring=:spring")
+    List<Clothes> findBySpring(String spring);
+
+    @Query("SELECT * FROM clothes WHERE summer=:summer")
+    List<Clothes> findBySummer(String summer);
+
+    @Query("SELECT * FROM clothes WHERE autumn=:autumn")
+    List<Clothes> findByAutumn(String autumn);
+
+    @Query("SELECT * FROM clothes WHERE winter=:winter")
+    List<Clothes> findByWinter(String winter);
+
+    @Query("SELECT * FROM clothes WHERE " +
+            "type=:type AND spring=:season OR " +
+            "type=:type AND summer=:season OR " +
+            "type=:type AND autumn=:season OR " +
+            "type=:type AND winter=:season")
+    List<Clothes> findByTypeAndSeason(String type, String season);
+
+    @Query("SELECT * FROM clothes WHERE style=:style")
+    List<Clothes> findByStyle(String style);
+
+//    @Query("SELECT * FROM clothes WHERE like=:like")
+//    List<Clothes> findByLike(boolean like);
 
     @Insert
     void insert(Clothes clothes);
