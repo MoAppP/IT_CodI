@@ -45,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent intent = new Intent(this, LoadingActivity.class);
+        startActivity(intent);
+
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
         ft = fm.beginTransaction();
         ft.add(R.id.frame, homeFragment).commit();

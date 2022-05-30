@@ -18,6 +18,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.LoadingActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+
         <activity android:name=".activity.SetupPopupActivity" android:theme="@android:style/Theme.Dialog"/>
     </application>
 
