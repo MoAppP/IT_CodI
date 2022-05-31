@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".activity.LoadingActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-
+        <activity android:name=".activity.ClothesinfoActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity android:name=".activity.SetupPopupActivity" android:theme="@android:style/Theme.Dialog"/>
     </application>
 
