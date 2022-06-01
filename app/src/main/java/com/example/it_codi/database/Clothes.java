@@ -103,6 +103,6 @@ public class Clothes {
 
     @Override
     public int hashCode() {
-        return uid;
+        return this.uid;
     }
 }

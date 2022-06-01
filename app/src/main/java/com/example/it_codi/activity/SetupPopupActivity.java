@@ -3,6 +3,7 @@ package com.example.it_codi.activity;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -41,6 +42,7 @@ public class SetupPopupActivity extends Activity {
 
         height = pref.getFloat("height", 0);
         weight = pref.getFloat("weight", 0);
+
         american = pref.getBoolean("american", false);
         city = pref.getBoolean("city", false);
         dandy = pref.getBoolean("dandy", false);
@@ -49,8 +51,13 @@ public class SetupPopupActivity extends Activity {
 
         if(height != 0)
             heightInput.setText(Float.toString(height));
+        else
+            heightInput.setText("");
         if(weight != 0)
             weightInput.setText(Float.toString(weight));
+        else
+            weightInput.setText("");
+
 
 
         cBtn_1.setChecked(american);
@@ -61,13 +68,13 @@ public class SetupPopupActivity extends Activity {
 
         closeBtn.setOnClickListener(view -> {
             if(!heightInput.getText().toString().equals(""))
-                editor.putInt("height", Integer.parseInt(heightInput.getText().toString()));
+                editor.putFloat("height", Float.parseFloat(heightInput.getText().toString()));
             else
-                return;
+                editor.putFloat("height", 0);
             if(!weightInput.getText().toString().equals(""))
-                editor.putInt("weight", Integer.parseInt(weightInput.getText().toString()));
+                editor.putFloat("weight", Float.parseFloat(weightInput.getText().toString()));
             else
-                return;
+                editor.putFloat("weight", 0);
 
             editor.putBoolean("american", cBtn_1.isChecked());
             editor.putBoolean("city", cBtn_2.isChecked());

@@ -69,12 +69,10 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
-
-        //싱글톤 패턴 적용
         DB = ClothesDatabase.getInstance(getApplicationContext());
-//        DB.clothesDao().deleteAll();
         if (DB.clothesDao().findAll().isEmpty())
             insertClothes();
+
 
     }
 
@@ -128,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
         DB.clothesDao().insert(clothes4);
 
         //2
-/*
+
         Bitmap bitmap5 = BitmapFactory.decodeResource(getResources(), R.drawable.codi2_accessory1, options);
         Clothes clothes5 = new Clothes(bitmap5, "악세서리", "봄", "여름", "","",getString(R.string.city),"머스타드 스틱캡",false);
         DB.clothesDao().insert(clothes5);
@@ -288,7 +286,7 @@ public class MainActivity extends AppCompatActivity {
         Bitmap bitmap41 = BitmapFactory.decodeResource(getResources(), R.drawable.codi8_top, options);
         Clothes clothes41 = new Clothes(bitmap41, "상의", "", "", "가을","겨울",getString(R.string.casual),"네이비 로고 후드티",false);
         DB.clothesDao().insert(clothes41);
-        */
+
 
     }
 

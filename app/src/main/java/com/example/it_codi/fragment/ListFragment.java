@@ -58,29 +58,8 @@ public class ListFragment extends Fragment {
 
         pref = this.getActivity().getSharedPreferences("pref", Activity.MODE_PRIVATE);
 
-        if(list.isEmpty()) {
-            boolean american = pref.getBoolean("american", false);
-            boolean city = pref.getBoolean("city",false);
-            boolean dandy = pref.getBoolean("dandy",false);
-            boolean casual = pref.getBoolean("casual",false);
-
-            if (!(american || city || dandy || casual))
-                list.addAll(DB.clothesDao().findAll());
-            else{
-                if (american)
-                    list.addAll(DB.clothesDao().findByType(getString(R.string.american)));
-                if (city)
-                    list.addAll(DB.clothesDao().findByType(getString(R.string.city)));
-                if (dandy)
-                    list.addAll(DB.clothesDao().findByType(getString(R.string.dandy)));
-                if (casual)
-                    list.addAll(DB.clothesDao().findByType(getString(R.string.casual)));
-            }
-
-        }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -103,81 +82,134 @@ public class ListFragment extends Fragment {
         CheckBox ss3 = layout.findViewById(R.id.season3);
         CheckBox ss4 = layout.findViewById(R.id.season4);
 
+        resetList(layout);
+        adapter.notifyDataSetChanged();
 
         cb1.setOnClickListener(view -> {
-            if(cb1.isChecked())
-                list.addAll(DB.clothesDao().findByType(cb1.getText().toString()));
-            else
-                list.removeAll(DB.clothesDao().findByType(cb1.getText().toString()));
+            resetList(layout);
 
             adapter.notifyDataSetChanged();
         });
         cb2.setOnClickListener(view ->{
-            if(cb2.isChecked())
-                list.addAll(DB.clothesDao().findByType(cb2.getText().toString()));
-            else
-                list.removeAll(DB.clothesDao().findByType(cb2.getText().toString()));
+            resetList(layout);
 
             adapter.notifyDataSetChanged();
         });
         cb3.setOnClickListener(view -> {
-            if(cb3.isChecked())
-                list.addAll(DB.clothesDao().findByType(cb3.getText().toString()));
-            else
-                list.removeAll(DB.clothesDao().findByType(cb3.getText().toString()));
+            resetList(layout);
 
             adapter.notifyDataSetChanged();
         });
         cb4.setOnClickListener(view -> {
-            if(cb4.isChecked())
-                list.addAll(DB.clothesDao().findByType(cb4.getText().toString()));
-            else
-                list.removeAll(DB.clothesDao().findByType(cb4.getText().toString()));
+            resetList(layout);
 
             adapter.notifyDataSetChanged();
         });
         cb5.setOnClickListener(view -> {
-            if(cb5.isChecked())
-                list.addAll(DB.clothesDao().findByType(cb5.getText().toString()));
-            else
-                list.removeAll(DB.clothesDao().findByType(cb5.getText().toString()));
+            resetList(layout);
 
             adapter.notifyDataSetChanged();
         });
         ss1.setOnClickListener(view -> {
-            if(ss1.isChecked())
-                list.addAll(DB.clothesDao().findBySpring(ss1.getText().toString()));
-            else
-                list.removeAll(DB.clothesDao().findBySpring(ss1.getText().toString()));
+            resetList(layout);
 
             adapter.notifyDataSetChanged();
         });
         ss2.setOnClickListener(view -> {
-            if(ss2.isChecked())
-                list.addAll(DB.clothesDao().findBySummer(ss2.getText().toString()));
-            else
-                list.removeAll(DB.clothesDao().findBySummer(ss2.getText().toString()));
+            resetList(layout);
 
             adapter.notifyDataSetChanged();
         });
         ss3.setOnClickListener(view -> {
-            if(ss3.isChecked())
-                list.addAll(DB.clothesDao().findByAutumn(ss3.getText().toString()));
-            else
-                list.removeAll(DB.clothesDao().findByAutumn(ss3.getText().toString()));
+            resetList(layout);
 
             adapter.notifyDataSetChanged();
         });
         ss4.setOnClickListener(view -> {
-            if(ss4.isChecked())
-                list.addAll(DB.clothesDao().findByWinter(ss4.getText().toString()));
-            else
-                list.removeAll(DB.clothesDao().findByWinter(ss4.getText().toString()));
+            resetList(layout);
 
             adapter.notifyDataSetChanged();
         });
 
         return layout;
+    }
+
+
+    private void resetList(View layout){
+        boolean american = pref.getBoolean("american", false);
+        boolean city = pref.getBoolean("city",false);
+        boolean dandy = pref.getBoolean("dandy",false);
+        boolean casual = pref.getBoolean("casual",false);
+
+        CheckBox cb1 = layout.findViewById(R.id.case1);
+        CheckBox cb2 = layout.findViewById(R.id.case2);
+        CheckBox cb3 = layout.findViewById(R.id.case3);
+        CheckBox cb4 = layout.findViewById(R.id.case4);
+        CheckBox cb5 = layout.findViewById(R.id.case5);
+
+        CheckBox ss1 = layout.findViewById(R.id.season1);
+        CheckBox ss2 = layout.findViewById(R.id.season2);
+        CheckBox ss3 = layout.findViewById(R.id.season3);
+        CheckBox ss4 = layout.findViewById(R.id.season4);
+
+        ArrayList<String> styles = new ArrayList<>();
+        if (!(american || city || dandy || casual)){
+            styles.add(getString(R.string.american));
+            styles.add(getString(R.string.city));
+            styles.add(getString(R.string.dandy));
+            styles.add(getString(R.string.casual));
+        }
+        else {
+            if (american)
+                styles.add(getString(R.string.american));
+            if (city)
+                styles.add(getString(R.string.city));
+            if (dandy)
+                styles.add(getString(R.string.dandy));
+            if (casual)
+                styles.add(getString(R.string.casual));
+        }
+
+        ArrayList<String> types = new ArrayList<>();
+        if (cb1.isChecked())
+            types.add(cb1.getText().toString());
+        if (cb2.isChecked())
+            types.add(cb2.getText().toString());
+        if (cb3.isChecked())
+            types.add(cb3.getText().toString());
+        if (cb4.isChecked())
+            types.add(cb4.getText().toString());
+        if (cb5.isChecked())
+            types.add(cb5.getText().toString());
+
+        ArrayList<String> seasons = new ArrayList<>();
+        if (ss1.isChecked())
+            seasons.add(ss1.getText().toString());
+        if (ss2.isChecked())
+            seasons.add(ss2.getText().toString());
+        if (ss3.isChecked())
+            seasons.add(ss3.getText().toString());
+        if (ss4.isChecked())
+            seasons.add(ss4.getText().toString());
+
+        LinkedHashSet<Clothes> set = new LinkedHashSet<>();
+        for (String style : styles){
+            for (String type : types){
+                for (String season : seasons){
+                    if (season.equals(ss1.getText().toString()))
+                        set.addAll(DB.clothesDao().findByTypeSpringStyle(type, season, style));
+                    if (season.equals(ss2.getText().toString()))
+                        set.addAll(DB.clothesDao().findByTypeSummerStyle(type, season, style));
+                    if (season.equals(ss3.getText().toString()))
+                        set.addAll(DB.clothesDao().findByTypeAutumnStyle(type, season, style));
+                    if (season.equals(ss4.getText().toString()))
+                        set.addAll(DB.clothesDao().findByTypeWinterStyle(type, season, style));
+                }
+            }
+        }
+
+        list.clear();
+        list.addAll(set);
     }
 
 

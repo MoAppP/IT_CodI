@@ -1,12 +1,19 @@
 package com.example.it_codi.activity;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 
 import com.example.it_codi.R;
+import com.example.it_codi.database.Clothes;
+import com.example.it_codi.database.ClothesDatabase;
 
 public class LoadingActivity extends Activity {
+    ClothesDatabase DB;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,5 +28,7 @@ public class LoadingActivity extends Activity {
                 finish();
             }
         }, 2000);
+
     }
+
 }

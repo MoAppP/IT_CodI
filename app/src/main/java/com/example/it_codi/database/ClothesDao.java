@@ -39,6 +39,18 @@ public interface ClothesDao {
             "type=:type AND winter=:season")
     List<Clothes> findByTypeAndSeason(String type, String season);
 
+    @Query("SELECT * FROM clothes WHERE type=:type AND spring=:spring AND style=:style")
+    List<Clothes> findByTypeSpringStyle(String type, String spring, String style);
+
+    @Query("SELECT * FROM clothes WHERE type=:type AND summer=:summer AND style=:style")
+    List<Clothes> findByTypeSummerStyle(String type, String summer, String style);
+
+    @Query("SELECT * FROM clothes WHERE type=:type AND autumn=:autumn AND style=:style")
+    List<Clothes> findByTypeAutumnStyle(String type, String autumn, String style);
+
+    @Query("SELECT * FROM clothes WHERE type=:type AND winter=:winter AND style=:style")
+    List<Clothes> findByTypeWinterStyle(String type, String winter, String style);
+
     @Query("SELECT * FROM clothes WHERE style=:style")
     List<Clothes> findByStyle(String style);
 
