@@ -37,13 +37,10 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<Holder> {
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         Clothes clothes = list.get(position);
         holder.iv.setImageBitmap(clothes.getImg());
-        holder.iv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, ClothesinfoActivity.class);
-                intent.putExtra("clothes_uid",clothes.getUid());
-                context.startActivity(intent);
-            }
+        holder.iv.setOnClickListener(view -> {
+            Intent intent = new Intent(context, ClothesinfoActivity.class);
+            intent.putExtra("clothes_uid",clothes.getUid());
+            context.startActivity(intent);
         });
     }
 

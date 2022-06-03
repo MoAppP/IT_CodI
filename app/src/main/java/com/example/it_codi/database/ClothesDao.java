@@ -55,8 +55,8 @@ public interface ClothesDao {
     @Query("SELECT * FROM clothes WHERE style=:style")
     List<Clothes> findByStyle(String style);
 
-//    @Query("SELECT * FROM clothes WHERE like=:like")
-//    List<Clothes> findByLike(boolean like);
+    @Query("SELECT * FROM clothes WHERE liked=:liked")
+    List<Clothes> findByLiked(boolean liked);
 
     @Insert
     void insert(Clothes clothes);

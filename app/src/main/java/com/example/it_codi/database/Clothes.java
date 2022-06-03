@@ -6,8 +6,6 @@ import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.util.Objects;
-
 @Entity
 public class Clothes {
     @PrimaryKey(autoGenerate = true)
@@ -20,9 +18,9 @@ public class Clothes {
     private String winter;
     private String style;
     private String name;
-    private boolean like;
+    private boolean liked;
 
-    public Clothes(Bitmap img, String type, String spring, String summer, String autumn, String winter, String style, String name, boolean like){
+    public Clothes(Bitmap img, String type, String spring, String summer, String autumn, String winter, String style, String name, boolean liked){
         this.img = img;
         this.type = type;
         this.spring = spring;
@@ -31,7 +29,7 @@ public class Clothes {
         this.winter = winter;
         this.style = style;
         this.name = name;
-        this.like = like;
+        this.liked = liked;
     }
 
     public int getUid() { return uid; }
@@ -82,12 +80,12 @@ public class Clothes {
         this.name = name;
     }
 
-    public boolean getLike() {
-        return like;
+    public boolean getLiked() {
+        return liked;
     }
 
-    public void setLike(boolean like) {
-        this.like = like;
+    public void setLiked(boolean liked) {
+        this.liked = liked;
     }
 
     @Override

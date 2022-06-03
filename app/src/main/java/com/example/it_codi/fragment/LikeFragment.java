@@ -3,64 +3,62 @@ package com.example.it_codi.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.it_codi.R;
+import com.example.it_codi.adapter.ListRecyclerAdapter;
+import com.example.it_codi.database.Clothes;
+import com.example.it_codi.database.ClothesDatabase;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link LikeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
 public class LikeFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    RecyclerView recyclerView;
+    ListRecyclerAdapter adapter;
+    GridLayoutManager layoutManager;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    ArrayList<Clothes> list = new ArrayList<Clothes>();
 
-    public LikeFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment LikeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static LikeFragment newInstance(String param1, String param2) {
-        LikeFragment fragment = new LikeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    ClothesDatabase DB;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        DB = ClothesDatabase.getInstance(getContext().getApplicationContext());
+
+        if (list.isEmpty())
+            list.addAll(DB.clothesDao().findByLiked(true));
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View layout = inflater.inflate(R.layout.fragment_like, container, false);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_like, container, false);
+        recyclerView = (RecyclerView) layout.findViewById(R.id.like_recycler_view);
+        adapter = new ListRecyclerAdapter(list);
+        layoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 2);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+
+        return layout;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        resetList();
+        adapter.notifyDataSetChanged();
+    }
+
+    private void resetList(){
+        list.clear();
+        list.addAll(DB.clothesDao().findByLiked(true));
     }
 }

@@ -62,13 +62,10 @@ public class ClothesinfoActivity extends Activity {
         tv.setText(temp);
 
         //likebtn
-        btn.setChecked(clothes.getLike());
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                clothes.setLike(btn.isChecked());
-                DB.clothesDao().updateClothes(clothes);
-            }
+        btn.setChecked(clothes.getLiked());
+        btn.setOnClickListener(view -> {
+            clothes.setLiked(btn.isChecked());
+            DB.clothesDao().updateClothes(clothes);
         });
 
     }
