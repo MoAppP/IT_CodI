@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +60,9 @@ public interface ClothesDao {
 
     @Insert
     void insert(Clothes clothes);
+
+    @Update
+    void updateClothes(Clothes clothes);
 
     @Delete
     void delete(Clothes clothes); //내부에 값을 넣어서 삭제 가능(오버로딩)

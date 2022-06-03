@@ -41,33 +41,8 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<Holder> {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ClothesinfoActivity.class);
-
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                clothes.getImg().compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                byte[] byteArray = stream.toByteArray();
-                intent.putExtra("byteArray",byteArray);
-
-                ArrayList<String> tags = new ArrayList<String>();
-                if(!clothes.getType().equals(""))
-                    tags.add(clothes.getType());
-                if(!clothes.getSpring().equals(""))
-                    tags.add(clothes.getSpring());
-                if(!clothes.getSummer().equals(""))
-                    tags.add(clothes.getSummer());
-                if(!clothes.getAutumn().equals(""))
-                    tags.add(clothes.getAutumn());
-                if(!clothes.getWinter().equals(""))
-                    tags.add(clothes.getWinter());
-                if(!clothes.getStyle().equals(""))
-                    tags.add(clothes.getStyle());
-                if(!clothes.getName().equals(""))
-                    tags.add(clothes.getName());
-                intent.putExtra("tags",tags);
-
-                intent.putExtra("like",clothes.getLike());
-
+                intent.putExtra("clothes_uid",clothes.getUid());
                 context.startActivity(intent);
-
             }
         });
     }

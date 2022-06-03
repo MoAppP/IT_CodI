@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        DB.clothesDao().deleteAll();
+        //DB.clothesDao().deleteAll();
         super.onDestroy();
     }
 
