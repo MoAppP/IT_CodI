@@ -14,9 +14,11 @@
         app:layout_constraintEnd_toEndOf="parent" >
 
         <LinearLayout
+            android:background="@drawable/border"
+            android:backgroundTint="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <EditText
                 android:id="@+id/height_et"
@@ -32,31 +34,35 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <CheckBox
                     android:id="@+id/checkbtn_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="@color/black"
                     android:text="아메카지"/>
                 <CheckBox
                     android:id="@+id/checkbtn_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="@color/black"
                     android:text="시티보이"/>
                 <CheckBox
                     android:id="@+id/checkbtn_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="@color/black"
                     android:text="댄디"/>
                 <CheckBox
                     android:id="@+id/checkbtn_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="@color/black"
                     android:text="캐주얼"/>
 
             </LinearLayout>
@@ -66,6 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
+                android:textColor="@color/black"
                 android:text="저장"/>
         </LinearLayout>
     </ScrollView>
