@@ -3,7 +3,6 @@ package com.example.it_codi.activity;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -19,7 +18,7 @@ public class SetupPopupActivity extends Activity {
     SharedPreferences pref;
     SharedPreferences.Editor editor;
 
-    float height, weight;
+    String height, weight;
     boolean american, city, dandy, casual;
 
     @Override
@@ -40,41 +39,39 @@ public class SetupPopupActivity extends Activity {
         pref = getSharedPreferences("pref", Activity.MODE_PRIVATE);
         editor = pref.edit();
 
-        height = pref.getFloat("height", 0);
-        weight = pref.getFloat("weight", 0);
-
+        height = pref.getString("height", "");
+        weight = pref.getString("weight", "");
         american = pref.getBoolean("american", false);
         city = pref.getBoolean("city", false);
         dandy = pref.getBoolean("dandy", false);
         casual = pref.getBoolean("casual", false);
 
-
-        if(height != 0)
-            heightInput.setText(Float.toString(height));
-        else
-            heightInput.setText("");
-        if(weight != 0)
-            weightInput.setText(Float.toString(weight));
-        else
-            weightInput.setText("");
-
-
+        if(!height.equals(""))
+            heightInput.setText(height);
+        if(!weight.equals(""))
+            weightInput.setText(weight);
 
         cBtn_1.setChecked(american);
-        cBtn_1.setChecked(city);
-        cBtn_1.setChecked(dandy);
-        cBtn_1.setChecked(casual);
-
+        cBtn_2.setChecked(city);
+        cBtn_3.setChecked(dandy);
+        cBtn_4.setChecked(casual);
 
         closeBtn.setOnClickListener(view -> {
-            if(!heightInput.getText().toString().equals(""))
-                editor.putFloat("height", Float.parseFloat(heightInput.getText().toString()));
-            else
-                editor.putFloat("height", 0);
-            if(!weightInput.getText().toString().equals(""))
-                editor.putFloat("weight", Float.parseFloat(weightInput.getText().toString()));
-            else
-                editor.putFloat("weight", 0);
+            String heights = heightInput.getText().toString();
+            String weights = weightInput.getText().toString();
+            try {
+                Float.valueOf(heights);
+            } catch (NumberFormatException e){
+                return;
+            }
+            try {
+                Float.valueOf(weights);
+            } catch (NumberFormatException e){
+                return;
+            }
+
+            editor.putString("height", heights);
+            editor.putString("weight", weights);
 
             editor.putBoolean("american", cBtn_1.isChecked());
             editor.putBoolean("city", cBtn_2.isChecked());
