@@ -8,22 +8,15 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.room.Database;
-import androidx.room.Room;
-import androidx.room.RoomDatabase;
 
 import com.example.it_codi.R;
 import com.example.it_codi.database.Clothes;
-import com.example.it_codi.database.ClothesDao;
 import com.example.it_codi.database.ClothesDatabase;
-import com.example.it_codi.database.Converters;
 import com.example.it_codi.fragment.HomeFragment;
 import com.example.it_codi.fragment.LikeFragment;
 import com.example.it_codi.fragment.ListFragment;

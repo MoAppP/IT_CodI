@@ -50,11 +50,14 @@ public class SetupPopupActivity extends Activity {
             heightInput.setText(height);
         if(!weight.equals(""))
             weightInput.setText(weight);
-
-        cBtn_1.setChecked(american);
-        cBtn_2.setChecked(city);
-        cBtn_3.setChecked(dandy);
-        cBtn_4.setChecked(casual);
+        if(american)
+            cBtn_1.setChecked(true);
+        if(city)
+            cBtn_2.setChecked(true);
+        if(dandy)
+            cBtn_3.setChecked(true);
+        if(casual)
+            cBtn_4.setChecked(true);
 
         closeBtn.setOnClickListener(view -> {
             String heights = heightInput.getText().toString();

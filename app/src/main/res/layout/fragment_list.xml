@@ -25,36 +25,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="상의"
-                android:layout_weight="1"
-                android:checked="true"/>
+                android:layout_weight="1"/>
             <CheckBox
                 android:id="@+id/case2"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="하의"
-                android:layout_weight="1"
-                android:checked="true"/>
+                android:layout_weight="1"/>
             <CheckBox
                 android:id="@+id/case3"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="신발"
-                android:layout_weight="1"
-                android:checked="true"/>
+                android:layout_weight="1"/>
             <CheckBox
                 android:id="@+id/case4"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="아우터"
-                android:layout_weight="1"
-                android:checked="true"/>
+                android:layout_weight="1"/>
             <CheckBox
                 android:id="@+id/case5"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="악세서리"
-                android:layout_weight="1"
-                android:checked="true"/>
+                android:layout_weight="1"/>
         </LinearLayout>
 
         <LinearLayout
@@ -67,29 +62,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="봄"
-                android:layout_weight="1"
-                android:checked="true"/>
+                android:layout_weight="1"/>
             <CheckBox
                 android:id="@+id/season2"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="여름"
-                android:layout_weight="1"
-                android:checked="true"/>
+                android:layout_weight="1"/>
             <CheckBox
                 android:id="@+id/season3"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="가을"
-                android:layout_weight="1"
-                android:checked="true"/>
+                android:layout_weight="1"/>
             <CheckBox
                 android:id="@+id/season4"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="겨울"
-                android:layout_weight="1"
-                android:checked="true"/>
+                android:layout_weight="1"/>
         </LinearLayout>
 
     </LinearLayout>

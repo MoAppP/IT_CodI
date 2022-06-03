@@ -1,13 +1,10 @@
 package com.example.it_codi.activity;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 
 import com.example.it_codi.R;
-import com.example.it_codi.database.Clothes;
 import com.example.it_codi.database.ClothesDatabase;
 
 public class LoadingActivity extends Activity {
