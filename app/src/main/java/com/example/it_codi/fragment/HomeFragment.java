@@ -90,9 +90,14 @@ public class HomeFragment extends Fragment {
 
         // Home View Pager에 들어갈 그림 목록
         ArrayList<Integer> list = new ArrayList<>();
-        list.add(R.drawable.chipmunk1);
-        list.add(R.drawable.chipmunk2);
-        list.add(R.drawable.chipmunk3);
+        list.add(R.drawable.codi1);
+        list.add(R.drawable.codi2);
+        list.add(R.drawable.codi3);
+        list.add(R.drawable.codi4);
+        list.add(R.drawable.codi5);
+        list.add(R.drawable.codi6);
+        list.add(R.drawable.codi7);
+        list.add(R.drawable.codi8);
 
 
         homeViewPager.setAdapter(new ViewPagerAdapter(list, tv_page));
