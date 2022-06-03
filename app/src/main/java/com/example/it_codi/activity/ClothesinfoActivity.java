@@ -2,6 +2,7 @@ package com.example.it_codi.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Window;
 import android.widget.ImageView;
@@ -43,6 +44,9 @@ public class ClothesinfoActivity extends Activity {
 
         //make tag list
         String temp = "";
+
+        temp += String.format("#%s\n", calculateSize(clothes));
+
         if(!clothes.getName().equals(""))
             temp += String.format("#%s\n",clothes.getName());
         if(!clothes.getType().equals(""))
@@ -67,5 +71,47 @@ public class ClothesinfoActivity extends Activity {
             DB.clothesDao().updateClothes(clothes);
         });
 
+    }
+
+    private String calculateSize(Clothes clothes){
+        SharedPreferences pref = getSharedPreferences("pref", Activity.MODE_PRIVATE);
+        if (!clothes.getType().equals("악세서리") && !clothes.getType().equals("신발")) {
+            String heights_str = pref.getString("height", "");
+            Float height;
+            try {
+                height = Float.valueOf(heights_str);
+            } catch (NumberFormatException e) {
+                height = Integer.valueOf(0).floatValue();
+            }
+
+            if (height > 180)
+                return "XL";
+            else if (height > 175)
+                return "L";
+            else if (height > 165)
+                return "M";
+            else
+                return "S";
+        }
+        else if (clothes.getType().equals("신발")){
+            String footSize_str = pref.getString("footSize", "");
+            Float footSize;
+            try {
+                footSize = Float.valueOf(footSize_str);
+            } catch (NumberFormatException e) {
+                footSize = Integer.valueOf(0).floatValue();
+            }
+
+            if (footSize > 280)
+                return "XL";
+            else if (footSize > 270)
+                return "L";
+            else if (footSize > 260)
+                return "M";
+            else
+                return "S";
+        }
+        else
+            return "Free";
     }
 }

@@ -30,6 +30,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="몸무게"/>
+            <EditText
+                android:id="@+id/footSize_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="신발 사이즈"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
