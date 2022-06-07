@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.it_codi.R;
+import com.example.it_codi.activity.ListLoadingActivity;
 import com.example.it_codi.adapter.ListRecyclerAdapter;
 import com.example.it_codi.database.Clothes;
 import com.example.it_codi.database.ClothesDatabase;
@@ -61,4 +62,5 @@ public class LikeFragment extends Fragment {
         list.clear();
         list.addAll(DB.clothesDao().findByLiked(true));
     }
+
 }

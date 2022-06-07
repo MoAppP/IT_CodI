@@ -24,6 +24,8 @@
         <activity android:name=".activity.ClothesinfoActivity"
             android:theme="@android:style/Theme.Dialog" />
         <activity android:name=".activity.SetupPopupActivity" android:theme="@android:style/Theme.Dialog"/>
+        <activity android:name=".activity.ListLoadingActivity"
+            android:theme="@style/Theme.AppCompat.Transparent.NoActionBar"/>
     </application>
 
 </manifest>

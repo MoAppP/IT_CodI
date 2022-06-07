@@ -2,6 +2,7 @@ package com.example.it_codi.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 public class ListRecyclerAdapter extends RecyclerView.Adapter<Holder> {
     ArrayList<Clothes> list;
     Context context;
+
     public ListRecyclerAdapter(ArrayList<Clothes> list) {
         this.list = list;
     }
@@ -32,7 +34,7 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<Holder> {
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         Clothes clothes = list.get(position);
-        holder.iv.setImageBitmap(clothes.getImg());
+        holder.iv.setImageBitmap(Bitmap.createScaledBitmap(clothes.getImg(), 700, 700, true));
         holder.iv.setOnClickListener(view -> {
             Intent intent = new Intent(context, ClothesinfoActivity.class);
             intent.putExtra("clothes_uid",clothes.getUid());
@@ -42,6 +44,11 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<Holder> {
 
     @Override public int getItemCount() {
         return list.size();
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return Long.valueOf(list.get(position).getUid());
     }
 }
 class Holder extends RecyclerView.ViewHolder {
