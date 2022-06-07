@@ -5,18 +5,24 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.SharedPreferences;
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.Toast;
 
 import com.example.it_codi.R;
 import com.example.it_codi.activity.ListLoadingActivity;
+import com.example.it_codi.activity.MainActivity;
 import com.example.it_codi.adapter.ListRecyclerAdapter;
 import com.example.it_codi.database.Clothes;
 import com.example.it_codi.database.ClothesDatabase;
@@ -30,6 +36,7 @@ public class ListFragment extends Fragment {
     ListRecyclerAdapter adapter;
     GridLayoutManager layoutManager;
 
+    ArrayList<Clothes> allList = new ArrayList<Clothes>();
     ArrayList<Clothes> list = new ArrayList<Clothes>();
     ArrayList<Clothes> temp = new ArrayList<Clothes>();
     ArrayList<CheckBox> list_ty = new ArrayList<CheckBox>();
@@ -39,6 +46,8 @@ public class ListFragment extends Fragment {
     ArrayList<CheckBox> list_ss4 = new ArrayList<CheckBox>();
 
     ClothesDatabase DB;
+
+    boolean isLoading = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,6 +67,27 @@ public class ListFragment extends Fragment {
         layoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+                if (!recyclerView.canScrollVertically(1) && newState==RecyclerView.SCROLL_STATE_IDLE) {
+                    Log.d("test", "?");
+                    Log.d("test", Boolean.toString(isLoading));
+                    if (!isLoading){
+//                        isLoading = true;
+                        dataMore();
+                    }
+                }
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
 
         CheckBox cb1 = layout.findViewById(R.id.case1);
         CheckBox cb2 = layout.findViewById(R.id.case2);
@@ -162,7 +192,7 @@ public class ListFragment extends Fragment {
     }
 
     private void check_add() {
-        list.clear();
+        allList.clear();
 
         SharedPreferences pref = this.getActivity().getSharedPreferences("pref", Context.MODE_PRIVATE);
         boolean st1 = pref.getBoolean("american", false);
@@ -177,8 +207,8 @@ public class ListFragment extends Fragment {
         boolean sea = !spr || !sum || !aut || !win;
         if(!typ && sea){
             temp.clear();
-            for(CheckBox it : list_ty) { list.addAll(DB.clothesDao().findByType(it.getText().toString())); }
-            for(Clothes it : list) {
+            for(CheckBox it : list_ty) { allList.addAll(DB.clothesDao().findByType(it.getText().toString())); }
+            for(Clothes it : allList) {
                 boolean s1 = it.getSpring().equals("");
                 boolean s2 = it.getSummer().equals("");
                 boolean s3 = it.getAutumn().equals("");
@@ -186,25 +216,25 @@ public class ListFragment extends Fragment {
                 if((!spr && !s1) || (!sum && !s2) || (!aut && !s3) || (!win && !s4))
                     temp.add(it);
             }
-            list.clear();
-            list.addAll(temp);
+            allList.clear();
+            allList.addAll(temp);
         }
         else if(!typ) {
-            for(CheckBox it : list_ty){ list.addAll(DB.clothesDao().findByType(it.getText().toString())); }
+            for(CheckBox it : list_ty){ allList.addAll(DB.clothesDao().findByType(it.getText().toString())); }
         }
         else if(sea) {
             if(!spr)
-                for(CheckBox it : list_ss1){ list.addAll(DB.clothesDao().findBySpring(it.getText().toString())); }
+                for(CheckBox it : list_ss1){ allList.addAll(DB.clothesDao().findBySpring(it.getText().toString())); }
             if(!sum)
-                for(CheckBox it : list_ss2){ list.addAll(DB.clothesDao().findBySummer(it.getText().toString())); }
+                for(CheckBox it : list_ss2){ allList.addAll(DB.clothesDao().findBySummer(it.getText().toString())); }
             if(!aut)
-                for(CheckBox it : list_ss3){ list.addAll(DB.clothesDao().findByAutumn(it.getText().toString())); }
+                for(CheckBox it : list_ss3){ allList.addAll(DB.clothesDao().findByAutumn(it.getText().toString())); }
             if(!win)
-                for(CheckBox it : list_ss4){ list.addAll(DB.clothesDao().findByWinter(it.getText().toString())); }
+                for(CheckBox it : list_ss4){ allList.addAll(DB.clothesDao().findByWinter(it.getText().toString())); }
         }
         if(st1 || st2 || st3 || st4) {
             temp.clear();
-            for (Clothes it : list) {
+            for (Clothes it : allList) {
                 String style = it.getStyle();
                 boolean ame = style.equals(getString(R.string.american));
                 boolean cit = style.equals(getString(R.string.city));
@@ -213,8 +243,8 @@ public class ListFragment extends Fragment {
                 if ((ame && st1) || (cit && st2) || (dan && st3) || (cas && st4))
                     temp.add(it);
             }
-            list.clear();
-            list.addAll(temp);
+            allList.clear();
+            allList.addAll(temp);
         }
 
         overlap_clear();
@@ -222,9 +252,48 @@ public class ListFragment extends Fragment {
 
     private void overlap_clear() {
         HashSet<Clothes> set = new HashSet<>();
-        for(Clothes item : list){ set.add(item); }
+        for(Clothes item : allList){ set.add(item); }
+        allList.clear();
+        allList.addAll(set);
+    }
+
+    private void firstData() {
+        // 총 아이템에서 6개를 받아옴
         list.clear();
-        list.addAll(set);
+        for (int i=0; i < 4 && i < allList.size(); i++) {
+            list.add(allList.get(i));
+        }
+    }
+
+    private void dataMore() {
+        list.add(null);
+        adapter.notifyItemInserted(list.size() -1 );
+
+        isLoading = true;
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                list.remove(list.size() -1 );
+                int scrollPosition = list.size();
+                adapter.notifyItemRemoved(scrollPosition);
+                int currentSize = scrollPosition;
+                int nextLimit = currentSize + 4;
+
+                for (int i=currentSize; i<nextLimit; i++) {
+                    if (i >= allList.size()) {
+                        break;
+                    }
+                    list.add(allList.get(i));
+                    Log.d("test", Integer.valueOf(i).toString()+"dataMore");
+                }
+
+                adapter.notifyDataSetChanged();
+                isLoading = false;
+                Log.d("test", Integer.valueOf(list.size()).toString()+"afterDataMore");
+            }
+        }, 2000);
+
     }
 
     //새로운 TASK정의 (AsyncTask)
@@ -241,7 +310,15 @@ public class ListFragment extends Fragment {
 //배열이라 여러개를 받을 수 도 있다. ex) excute(100, 10, 20, 30); 이런식으로 전달 받으면 된다.
         protected Integer doInBackground(Integer ... values) {
             check_add();
+            firstData();
+            Log.d("test", Integer.valueOf(allList.size()).toString()+"allList size");
             return values[0];
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+//            adapter.notifyDataSetChanged();
         }
 
         //이 Task에서(즉 이 스레드에서) 수행되던 작업이 종료되었을 때 호출됨

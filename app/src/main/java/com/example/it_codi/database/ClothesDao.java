@@ -14,6 +14,9 @@ public interface ClothesDao {
     @Query("SELECT * FROM clothes")
     List<Clothes> findAll();
 
+    @Query("SELECT type FROM clothes")
+    List<String> findAllType();
+
     @Query("SELECT * FROM clothes where uid=:uid")
     Clothes findById(int uid);
 
