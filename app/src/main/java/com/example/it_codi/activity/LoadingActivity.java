@@ -26,7 +26,7 @@ public class LoadingActivity extends Activity {
             @Override
             public void run() {
                 DB = ClothesDatabase.getInstance(getApplicationContext());
-                if (DB.clothesDao().findAllType().isEmpty())
+                if (DB.clothesDao().findAllUid().isEmpty())
                     insertClothes();
 
                 finish();

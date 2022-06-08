@@ -26,8 +26,8 @@ public class LikeFragment extends Fragment {
     ListRecyclerAdapter adapter;
     GridLayoutManager layoutManager;
 
-    ArrayList<Clothes> allList = new ArrayList<Clothes>();
-    ArrayList<Clothes> list = new ArrayList<Clothes>();
+    ArrayList<Integer> allList = new ArrayList<Integer>();
+    ArrayList<Integer> list = new ArrayList<Integer>();
 
     ClothesDatabase DB;
 
@@ -39,7 +39,7 @@ public class LikeFragment extends Fragment {
         DB = ClothesDatabase.getInstance(getContext().getApplicationContext());
 
         if (allList.isEmpty()) {
-            allList.addAll(DB.clothesDao().findByLiked(true));
+            allList.addAll(DB.clothesDao().findUidByLiked(true));
             firstData();
         }
     }
@@ -83,12 +83,13 @@ public class LikeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         resetList();
+        firstData();
         adapter.notifyDataSetChanged();
     }
 
     private void resetList(){
         allList.clear();
-        allList.addAll(DB.clothesDao().findByLiked(true));
+        allList.addAll(DB.clothesDao().findUidByLiked(true));
     }
 
     private void firstData() {

@@ -1,6 +1,5 @@
 package com.example.it_codi.fragment;
 
-import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -11,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Dao;
 
 import android.content.SharedPreferences;
 import android.os.Handler;
@@ -31,7 +31,6 @@ import com.example.it_codi.database.ClothesDatabase;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
-import java.util.List;
 
 public class ListFragment extends Fragment {
 
@@ -39,9 +38,9 @@ public class ListFragment extends Fragment {
     ListRecyclerAdapter adapter;
     GridLayoutManager layoutManager;
 
-    ArrayList<Clothes> allList = new ArrayList<Clothes>();
-    ArrayList<Clothes> list = new ArrayList<Clothes>();
-    ArrayList<Clothes> temp = new ArrayList<Clothes>();
+    ArrayList<Integer> allList = new ArrayList<Integer>();
+    ArrayList<Integer> list = new ArrayList<Integer>();
+    ArrayList<Integer> temp = new ArrayList<Integer>();
     ArrayList<String> list_ty = new ArrayList<String>();
     ArrayList<String> list_ss1 = new ArrayList<String>();
     ArrayList<String> list_ss2 = new ArrayList<String>();
@@ -105,23 +104,23 @@ public class ListFragment extends Fragment {
 
         cb1.setOnClickListener(view -> {
             updateListTy((CheckBox) view);
-            new CheckAddBackGround().execute(0);
+            check_connect();
         });
         cb2.setOnClickListener(view ->{
             updateListTy((CheckBox) view);
-            new CheckAddBackGround().execute(0);
+            check_connect();
         });
         cb3.setOnClickListener(view -> {
             updateListTy((CheckBox) view);
-            new CheckAddBackGround().execute(0);
+            check_connect();
         });
         cb4.setOnClickListener(view -> {
             updateListTy((CheckBox) view);
-            new CheckAddBackGround().execute(0);
+            check_connect();
         });
         cb5.setOnClickListener(view -> {
             updateListTy((CheckBox) view);
-            new CheckAddBackGround().execute(0);
+            check_connect();
         });
         ss1.setOnClickListener(view -> {
             if(ss1.isChecked()) {
@@ -130,7 +129,7 @@ public class ListFragment extends Fragment {
             else {
                 list_ss1.remove(ss1.getText().toString());
             }
-            new CheckAddBackGround().execute(0);
+            check_connect();
         });
         ss2.setOnClickListener(view -> {
             if(ss2.isChecked()) {
@@ -139,7 +138,7 @@ public class ListFragment extends Fragment {
             else {
                 list_ss2.remove(ss2.getText().toString());
             }
-            new CheckAddBackGround().execute(0);
+            check_connect();
         });
         ss3.setOnClickListener(view -> {
             if(ss3.isChecked()) {
@@ -148,7 +147,7 @@ public class ListFragment extends Fragment {
             else {
                 list_ss3.remove(ss3.getText().toString());
             }
-            new CheckAddBackGround().execute(0);
+            check_connect();
         });
         ss4.setOnClickListener(view -> {
             if(ss4.isChecked()) {
@@ -157,7 +156,7 @@ public class ListFragment extends Fragment {
             else {
                 list_ss4.remove(ss4.getText().toString());
             }
-            new CheckAddBackGround().execute(0);
+            check_connect();
         });
 
         return layout;
@@ -167,6 +166,7 @@ public class ListFragment extends Fragment {
     public void onResume(){
         super.onResume();
         check_add();
+        firstData();
         printAllList();
         printList();
         printListTy();
@@ -176,6 +176,20 @@ public class ListFragment extends Fragment {
         printListSs3();
         printListSs4();
         adapter.notifyDataSetChanged();
+    }
+
+    private void check_connect() {
+        boolean typ = list_ty.isEmpty();
+        boolean spr = list_ss1.isEmpty();
+        boolean sum = list_ss2.isEmpty();
+        boolean aut = list_ss3.isEmpty();
+        boolean win = list_ss4.isEmpty();
+        if(typ && spr && sum && aut && win){
+            list.clear();
+            adapter.notifyDataSetChanged();
+        }
+        else
+            new CheckAddBackGround().execute(0);
     }
 
     private void check_add() {
@@ -199,12 +213,12 @@ public class ListFragment extends Fragment {
         list_ss4 = new ArrayList<>(new LinkedHashSet<>(list_ss4));
         if(!typ && sea){
             temp.clear();
-            for(String it : list_ty) { allList.addAll(DB.clothesDao().findByType(it)); }
-            for(Clothes it : allList) {
-                boolean s1 = it.getSpring().equals("");
-                boolean s2 = it.getSummer().equals("");
-                boolean s3 = it.getAutumn().equals("");
-                boolean s4 = it.getWinter().equals("");
+            for(String it : list_ty) { allList.addAll(DB.clothesDao().findUidByType(it)); }
+            for(Integer it : allList) {
+                boolean s1 = DB.clothesDao().findById(it).getSpring().equals("");
+                boolean s2 = DB.clothesDao().findById(it).getSummer().equals("");
+                boolean s3 = DB.clothesDao().findById(it).getAutumn().equals("");
+                boolean s4 = DB.clothesDao().findById(it).getWinter().equals("");
                 if((!spr && !s1) || (!sum && !s2) || (!aut && !s3) || (!win && !s4))
                     temp.add(it);
             }
@@ -212,22 +226,22 @@ public class ListFragment extends Fragment {
             allList.addAll(temp);
         }
         else if(!typ) {
-            for(String it : list_ty){ allList.addAll(DB.clothesDao().findByType(it)); }
+            for(String it : list_ty){ allList.addAll(DB.clothesDao().findUidByType(it)); }
         }
         else if(sea) {
             if(!spr)
-                for(String it : list_ss1){ allList.addAll(DB.clothesDao().findBySpring(it)); }
+                for(String it : list_ss1){ allList.addAll(DB.clothesDao().findUidBySpring(it)); }
             if(!sum)
-                for(String it : list_ss2){ allList.addAll(DB.clothesDao().findBySummer(it)); }
+                for(String it : list_ss2){ allList.addAll(DB.clothesDao().findUidBySummer(it)); }
             if(!aut)
-                for(String it : list_ss3){ allList.addAll(DB.clothesDao().findByAutumn(it)); }
+                for(String it : list_ss3){ allList.addAll(DB.clothesDao().findUidByAutumn(it)); }
             if(!win)
-                for(String it : list_ss4){ allList.addAll(DB.clothesDao().findByWinter(it)); }
+                for(String it : list_ss4){ allList.addAll(DB.clothesDao().findUidByWinter(it)); }
         }
         if(st1 || st2 || st3 || st4) {
             temp.clear();
-            for (Clothes it : allList) {
-                String style = it.getStyle();
+            for (Integer it : allList) {
+                String style = DB.clothesDao().findById(it).getStyle();
                 boolean ame = style.equals(getString(R.string.american));
                 boolean cit = style.equals(getString(R.string.city));
                 boolean dan = style.equals(getString(R.string.dandy));
@@ -243,8 +257,8 @@ public class ListFragment extends Fragment {
     }
 
     private void overlap_clear() {
-        HashSet<Clothes> set = new HashSet<>();
-        for(Clothes item : allList){ set.add(item); }
+        HashSet<Integer> set = new HashSet<>();
+        for(Integer item : allList){ set.add(item); }
         allList.clear();
         allList.addAll(set);
     }
@@ -303,9 +317,11 @@ public class ListFragment extends Fragment {
         protected void onPreExecute() {
             if (isCheckAddLoading)
                 onCancelled();
-            Intent it = new Intent(getActivity(), ListLoadingActivity.class);
-            startActivity(it);
-            isCheckAddLoading = true;
+            else{
+                Intent it = new Intent(getActivity(), ListLoadingActivity.class);
+                startActivity(it);
+                isCheckAddLoading = true;
+            }
         }
 
         //스레드의 백그라운드 작업 구현
@@ -335,14 +351,7 @@ public class ListFragment extends Fragment {
             printListSs2();
             printListSs3();
             printListSs4();
-            getRunActivity();
-            Log.d("test", "activity "+ListLoadingActivity.activity.toString());
             ListLoadingActivity.activity.finish();
-            Log.d("test", "activity "+ListLoadingActivity.activity.toString());
-            ListLoadingActivity.activity.finish();
-            getRunActivity();
-//            System.exit(0);
-//            ListLoadingActivity.activity = null;
             isCheckAddLoading = false;
         }
     }
@@ -350,14 +359,14 @@ public class ListFragment extends Fragment {
     public void printAllList() {
         String s = "";
         for (int i = 0; i < allList.size(); i++) {
-            s += Integer.valueOf(allList.get(i).getUid()).toString()+" ";
+            s += Integer.valueOf(allList.get(i)).toString()+" ";
         }
         Log.d("test", "allList "+s);
     }
     public void printList(){
         String s = "";
         for (int i = 0; i < list.size(); i++) {
-            s += Integer.valueOf(list.get(i).getUid()).toString()+" ";
+            s += Integer.valueOf(list.get(i)).toString()+" ";
         }
         Log.d("test", "list "+s);
     }
@@ -395,13 +404,5 @@ public class ListFragment extends Fragment {
             s += list_ss4.get(i)+" ";
         }
         Log.d("test", "list_ss4 "+s);
-    }
-
-    void getRunActivity()	{
-        ActivityManager activity_manager = (ActivityManager)getActivity().getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningTaskInfo> task_info = activity_manager.getRunningTasks(9999);
-        for(int i = 0; i<task_info.size(); i++) {
-            Log.d("test", "[" + i + "] activity:"+ task_info.get(i).topActivity.getPackageName() + " >> " + task_info.get(i).topActivity.getClassName());
-        }
     }
 }

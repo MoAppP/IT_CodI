@@ -12,10 +12,13 @@ import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Database;
 
 import com.example.it_codi.R;
 import com.example.it_codi.activity.ClothesinfoActivity;
 import com.example.it_codi.database.Clothes;
+import com.example.it_codi.database.ClothesDao;
+import com.example.it_codi.database.ClothesDatabase;
 
 import java.util.ArrayList;
 
@@ -23,10 +26,13 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
 
-    ArrayList<Clothes> list;
+    ArrayList<Integer> list;
     Context context;
 
-    public ListRecyclerAdapter(ArrayList<Clothes> list) {
+    ClothesDatabase DB;
+    ClothesDao Dao;
+
+    public ListRecyclerAdapter(ArrayList<Integer> list) {
         this.list = list;
     }
     @NonNull @Override public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -34,12 +40,16 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             context = parent.getContext();
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View view = inflater.inflate(R.layout.item_recycler, parent, false);
+            DB = ClothesDatabase.getInstance(context);
+            Dao = DB.clothesDao();
             return new ItemHolder(view);
         }
         else {
             context = parent.getContext();
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View view = inflater.inflate(R.layout.item_recycler_loading, parent, false);
+            DB = ClothesDatabase.getInstance(context);
+            Dao = DB.clothesDao();
             return new LoadingHolder(view);
         }
     }
@@ -48,7 +58,7 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
         if (viewHolder instanceof ItemHolder) {
             ItemHolder itemHolder = (ItemHolder) viewHolder;
-            Clothes clothes = list.get(position);
+            Clothes clothes = Dao.findById(list.get(position));
             itemHolder.iv.setImageBitmap(Bitmap.createScaledBitmap(clothes.getImg(), 700, 700, true));
             itemHolder.iv.setOnClickListener(view -> {
                 Log.d("test", Integer.valueOf(position).toString()+"position");
@@ -69,7 +79,7 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public long getItemId(int position) {
         if (list.get(position) != null){
-            return Long.valueOf(list.get(position).getUid());
+            return Long.valueOf(list.get(position));
         }
         else{
             return 0;
