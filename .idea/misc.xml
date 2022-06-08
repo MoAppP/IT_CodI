@@ -13,10 +13,6 @@
         <entry key="..\:/Project/AppProgramming_TermProject/IT_CodI/app/src/main/res/layout/item_recycler.xml" value="0.25364583333333335" />
         <entry key="..\:/Project/AppProgramming_TermProject/IT_CodI/app/src/main/res/layout/item_viewpager.xml" value="0.12335359675785208" />
         <entry key="..\:/Project/AppProgramming_TermProject/IT_CodI/app/src/main/res/menu/menu.xml" value="0.2388888888888889" />
-        <entry key="..\:/Users/Min/Desktop/IT_CodI/app/src/main/res/layout/activity_listloading.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/Min/Desktop/IT_CodI/app/src/main/res/layout/fragment_home.xml" value="0.1125" />
-        <entry key="..\:/Users/Min/Desktop/IT_CodI/app/src/main/res/layout/item_recycler.xml" value="0.1125" />
-        <entry key="..\:/Users/Min/Desktop/IT_CodI/app/src/main/res/layout/item_recycler_loading.xml" value="0.136" />
         <entry key="..\:/Users/Min/Desktop/IT_CodI/app/src/main/res/menu/menu.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/jfkrd/AndroidStudioProjects/IT_CodI/app/src/main/res/drawable-v24/gray_ellipse.xml" value="0.207" />
         <entry key="..\:/Users/jfkrd/AndroidStudioProjects/IT_CodI/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.207" />
@@ -26,10 +22,13 @@
         <entry key="..\:/Users/jfkrd/AndroidStudioProjects/IT_CodI/app/src/main/res/drawable/it_icon_background.xml" value="0.12" />
         <entry key="..\:/Users/jfkrd/AndroidStudioProjects/IT_CodI/app/src/main/res/layout/activity_clothesinfo.xml" value="0.18478260869565216" />
         <entry key="..\:/Users/jfkrd/AndroidStudioProjects/IT_CodI/app/src/main/res/layout/activity_loading.xml" value="0.18478260869565216" />
-        <entry key="..\:/Users/jfkrd/AndroidStudioProjects/IT_CodI/app/src/main/res/layout/activity_main.xml" value="0.18478260869565216" />
+        <entry key="..\:/Users/jfkrd/AndroidStudioProjects/IT_CodI/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/jfkrd/AndroidStudioProjects/IT_CodI/app/src/main/res/layout/activity_setuppopup.xml" value="0.1" />
+        <entry key="..\:/Users/jfkrd/AndroidStudioProjects/IT_CodI/app/src/main/res/layout/fragment_home.xml" value="0.16621376811594202" />
+        <entry key="..\:/Users/jfkrd/AndroidStudioProjects/IT_CodI/app/src/main/res/layout/fragment_like.xml" value="0.1" />
         <entry key="..\:/Users/jfkrd/AndroidStudioProjects/IT_CodI/app/src/main/res/layout/fragment_list.xml" value="0.18478260869565216" />
         <entry key="..\:/Users/jfkrd/AndroidStudioProjects/IT_CodI/app/src/main/res/layout/item_recycler.xml" value="0.18478260869565216" />
+        <entry key="..\:/Users/jfkrd/AndroidStudioProjects/IT_CodI/app/src/main/res/layout/item_recycler_loading.xml" value="0.16621376811594202" />
         <entry key="..\:/Users/jfkrd/AndroidStudioProjects/IT_CodI/app/src/main/res/layout/item_viewpager.xml" value="0.1625" />
         <entry key="..\:/Users/jfkrd/AndroidStudioProjects/IT_CodI/app/src/main/res/layout/roundicon.xml" value="0.18489583333333334" />
         <entry key="..\:/Users/jfkrd/AndroidStudioProjects/IT_CodI/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
