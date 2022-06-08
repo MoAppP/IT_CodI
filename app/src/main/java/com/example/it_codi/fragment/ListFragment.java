@@ -29,6 +29,7 @@ import com.example.it_codi.database.ClothesDatabase;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 
 public class ListFragment extends Fragment {
 
@@ -39,11 +40,11 @@ public class ListFragment extends Fragment {
     ArrayList<Clothes> allList = new ArrayList<Clothes>();
     ArrayList<Clothes> list = new ArrayList<Clothes>();
     ArrayList<Clothes> temp = new ArrayList<Clothes>();
-    ArrayList<CheckBox> list_ty = new ArrayList<CheckBox>();
-    ArrayList<CheckBox> list_ss1 = new ArrayList<CheckBox>();
-    ArrayList<CheckBox> list_ss2 = new ArrayList<CheckBox>();
-    ArrayList<CheckBox> list_ss3 = new ArrayList<CheckBox>();
-    ArrayList<CheckBox> list_ss4 = new ArrayList<CheckBox>();
+    ArrayList<String> list_ty = new ArrayList<String>();
+    ArrayList<String> list_ss1 = new ArrayList<String>();
+    ArrayList<String> list_ss2 = new ArrayList<String>();
+    ArrayList<String> list_ss3 = new ArrayList<String>();
+    ArrayList<String> list_ss4 = new ArrayList<String>();
 
     ClothesDatabase DB;
 
@@ -100,83 +101,58 @@ public class ListFragment extends Fragment {
         CheckBox ss4 = layout.findViewById(R.id.season4);
 
         cb1.setOnClickListener(view -> {
-            if(cb1.isChecked()) {
-                list_ty.add(cb1);
-            }
-            else {
-                list_ty.remove(cb1);
-            }
+            updateListTy((CheckBox) view);
             new CheckAddBackGround().execute(0);
         });
         cb2.setOnClickListener(view ->{
-            if(cb2.isChecked()) {
-                list_ty.add(cb2);
-            }
-            else {
-                list_ty.remove(cb2);
-            }
+            updateListTy((CheckBox) view);
             new CheckAddBackGround().execute(0);
         });
         cb3.setOnClickListener(view -> {
-            if(cb3.isChecked()) {
-                list_ty.add(cb3);
-            }
-            else {
-                list_ty.remove(cb3);
-            }
+            updateListTy((CheckBox) view);
             new CheckAddBackGround().execute(0);
         });
         cb4.setOnClickListener(view -> {
-            if(cb4.isChecked()) {
-                list_ty.add(cb4);
-            }
-            else {
-                list_ty.remove(cb4);
-            }
+            updateListTy((CheckBox) view);
             new CheckAddBackGround().execute(0);
         });
         cb5.setOnClickListener(view -> {
-            if(cb5.isChecked()) {
-                list_ty.add(cb5);
-            }
-            else {
-                list_ty.remove(cb5);
-            }
+            updateListTy((CheckBox) view);
             new CheckAddBackGround().execute(0);
         });
         ss1.setOnClickListener(view -> {
             if(ss1.isChecked()) {
-                list_ss1.add(ss1);
+                list_ss1.add(ss1.getText().toString());
             }
             else {
-                list_ss1.remove(ss1);
+                list_ss1.remove(ss1.getText().toString());
             }
             new CheckAddBackGround().execute(0);
         });
         ss2.setOnClickListener(view -> {
             if(ss2.isChecked()) {
-                list_ss2.add(ss2);
+                list_ss2.add(ss2.getText().toString());
             }
             else {
-                list_ss2.remove(ss2);
+                list_ss2.remove(ss2.getText().toString());
             }
             new CheckAddBackGround().execute(0);
         });
         ss3.setOnClickListener(view -> {
             if(ss3.isChecked()) {
-                list_ss3.add(ss3);
+                list_ss3.add(ss3.getText().toString());
             }
             else {
-                list_ss3.remove(ss3);
+                list_ss3.remove(ss3.getText().toString());
             }
             new CheckAddBackGround().execute(0);
         });
         ss4.setOnClickListener(view -> {
             if(ss4.isChecked()) {
-                list_ss4.add(ss4);
+                list_ss4.add(ss4.getText().toString());
             }
             else {
-                list_ss4.remove(ss4);
+                list_ss4.remove(ss4.getText().toString());
             }
             new CheckAddBackGround().execute(0);
         });
@@ -188,6 +164,14 @@ public class ListFragment extends Fragment {
     public void onResume(){
         super.onResume();
         check_add();
+        printAllList();
+        printList();
+        printListTy();
+        printAllList();
+        printListSs1();
+        printListSs2();
+        printListSs3();
+        printListSs4();
         adapter.notifyDataSetChanged();
     }
 
@@ -205,9 +189,14 @@ public class ListFragment extends Fragment {
         boolean aut = list_ss3.isEmpty();
         boolean win = list_ss4.isEmpty();
         boolean sea = !spr || !sum || !aut || !win;
+        list_ty = new ArrayList<>(new LinkedHashSet<>(list_ty));
+        list_ss1 = new ArrayList<>(new LinkedHashSet<>(list_ss1));
+        list_ss2 = new ArrayList<>(new LinkedHashSet<>(list_ss2));
+        list_ss3 = new ArrayList<>(new LinkedHashSet<>(list_ss3));
+        list_ss4 = new ArrayList<>(new LinkedHashSet<>(list_ss4));
         if(!typ && sea){
             temp.clear();
-            for(CheckBox it : list_ty) { allList.addAll(DB.clothesDao().findByType(it.getText().toString())); }
+            for(String it : list_ty) { allList.addAll(DB.clothesDao().findByType(it)); }
             for(Clothes it : allList) {
                 boolean s1 = it.getSpring().equals("");
                 boolean s2 = it.getSummer().equals("");
@@ -220,17 +209,17 @@ public class ListFragment extends Fragment {
             allList.addAll(temp);
         }
         else if(!typ) {
-            for(CheckBox it : list_ty){ allList.addAll(DB.clothesDao().findByType(it.getText().toString())); }
+            for(String it : list_ty){ allList.addAll(DB.clothesDao().findByType(it)); }
         }
         else if(sea) {
             if(!spr)
-                for(CheckBox it : list_ss1){ allList.addAll(DB.clothesDao().findBySpring(it.getText().toString())); }
+                for(String it : list_ss1){ allList.addAll(DB.clothesDao().findBySpring(it)); }
             if(!sum)
-                for(CheckBox it : list_ss2){ allList.addAll(DB.clothesDao().findBySummer(it.getText().toString())); }
+                for(String it : list_ss2){ allList.addAll(DB.clothesDao().findBySummer(it)); }
             if(!aut)
-                for(CheckBox it : list_ss3){ allList.addAll(DB.clothesDao().findByAutumn(it.getText().toString())); }
+                for(String it : list_ss3){ allList.addAll(DB.clothesDao().findByAutumn(it)); }
             if(!win)
-                for(CheckBox it : list_ss4){ allList.addAll(DB.clothesDao().findByWinter(it.getText().toString())); }
+                for(String it : list_ss4){ allList.addAll(DB.clothesDao().findByWinter(it)); }
         }
         if(st1 || st2 || st3 || st4) {
             temp.clear();
@@ -256,6 +245,14 @@ public class ListFragment extends Fragment {
         allList.clear();
         allList.addAll(set);
     }
+
+    private void updateListTy(CheckBox cb){
+        if(cb.isChecked())
+            list_ty.add(cb.getText().toString());
+        else
+            list_ty.remove(cb.getText().toString());
+    }
+
 
     private void firstData() {
         // 총 아이템에서 6개를 받아옴
@@ -324,7 +321,65 @@ public class ListFragment extends Fragment {
         //이 Task에서(즉 이 스레드에서) 수행되던 작업이 종료되었을 때 호출됨
         protected void onPostExecute(Integer result) {
             adapter.notifyDataSetChanged();
+            printAllList();
+            printList();
+            printListTy();
+            printAllList();
+            printListSs1();
+            printListSs2();
+            printListSs3();
+            printListSs4();
             ListLoadingActivity.activity.finish();
         }
+    }
+
+    public void printAllList() {
+        String s = "";
+        for (int i = 0; i < allList.size(); i++) {
+            s += Integer.valueOf(allList.get(i).getUid()).toString()+" ";
+        }
+        Log.d("test", "allList "+s);
+    }
+    public void printList(){
+        String s = "";
+        for (int i = 0; i < list.size(); i++) {
+            s += Integer.valueOf(list.get(i).getUid()).toString()+" ";
+        }
+        Log.d("test", "list "+s);
+    }
+    public void printListTy(){
+        String s = "";
+        for (int i = 0; i < list_ty.size(); i++) {
+            s += list_ty.get(i)+" ";
+        }
+        Log.d("test", "list_ty "+s);
+    }
+    public void printListSs1(){
+        String s = "";
+        for (int i = 0; i < list_ss1.size(); i++) {
+            s += list_ss1.get(i)+" ";
+        }
+        Log.d("test", "list_ss1 "+s);
+    }
+    public void printListSs2(){
+        String s = "";
+        for (int i = 0; i < list_ss2.size(); i++) {
+            s += list_ss2.get(i)+" ";
+        }
+        Log.d("test", "list_ss2 "+s);
+    }
+    public void printListSs3(){
+        String s = "";
+        for (int i = 0; i < list_ss3.size(); i++) {
+            s += list_ss3.get(i)+" ";
+        }
+        Log.d("test", "list_ss3 "+s);
+    }
+    public void printListSs4(){
+        String s = "";
+        for (int i = 0; i < list_ss4.size(); i++) {
+            s += list_ss4.get(i)+" ";
+        }
+        Log.d("test", "list_ss4 "+s);
     }
 }
