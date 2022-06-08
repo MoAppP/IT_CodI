@@ -8,7 +8,16 @@ import com.example.it_codi.R;
 import com.example.it_codi.database.ClothesDatabase;
 
 public class ListLoadingActivity extends Activity {
+//    private static ListLoadingActivity instance = null;
     public static Activity activity;
+
+//    public static ListLoadingActivity getInstance(){
+//        if (instance == null){
+//            instance = new ListLoadingActivity();
+//        }
+//        return instance;
+//    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,8 +26,14 @@ public class ListLoadingActivity extends Activity {
         activity = ListLoadingActivity.this;
     }
 
-    @Override
-    public void onBackPressed() {
-        return;
-    }
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        onDestroy();
+//    }
+
+//    @Override
+//    public void onBackPressed() {
+//        return;
+//    }
 }

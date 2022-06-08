@@ -1,5 +1,6 @@
 package com.example.it_codi.fragment;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -30,6 +31,7 @@ import com.example.it_codi.database.ClothesDatabase;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.List;
 
 public class ListFragment extends Fragment {
 
@@ -49,6 +51,7 @@ public class ListFragment extends Fragment {
     ClothesDatabase DB;
 
     boolean isLoading = false;
+    boolean isCheckAddLoading = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -298,8 +301,11 @@ public class ListFragment extends Fragment {
     class CheckAddBackGround extends AsyncTask<Integer , Integer , Integer> {
         //초기화 단계에서 사용한다. 초기화관련 코드를 작성했다.
         protected void onPreExecute() {
+            if (isCheckAddLoading)
+                onCancelled();
             Intent it = new Intent(getActivity(), ListLoadingActivity.class);
             startActivity(it);
+            isCheckAddLoading = true;
         }
 
         //스레드의 백그라운드 작업 구현
@@ -329,7 +335,15 @@ public class ListFragment extends Fragment {
             printListSs2();
             printListSs3();
             printListSs4();
+            getRunActivity();
+            Log.d("test", "activity "+ListLoadingActivity.activity.toString());
             ListLoadingActivity.activity.finish();
+            Log.d("test", "activity "+ListLoadingActivity.activity.toString());
+            ListLoadingActivity.activity.finish();
+            getRunActivity();
+//            System.exit(0);
+//            ListLoadingActivity.activity = null;
+            isCheckAddLoading = false;
         }
     }
 
@@ -381,5 +395,13 @@ public class ListFragment extends Fragment {
             s += list_ss4.get(i)+" ";
         }
         Log.d("test", "list_ss4 "+s);
+    }
+
+    void getRunActivity()	{
+        ActivityManager activity_manager = (ActivityManager)getActivity().getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningTaskInfo> task_info = activity_manager.getRunningTasks(9999);
+        for(int i = 0; i<task_info.size(); i++) {
+            Log.d("test", "[" + i + "] activity:"+ task_info.get(i).topActivity.getPackageName() + " >> " + task_info.get(i).topActivity.getClassName());
+        }
     }
 }
