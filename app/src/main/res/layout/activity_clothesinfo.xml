@@ -8,27 +8,30 @@
     <ScrollView
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/border"
+        android:backgroundTint="@color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:background="@drawable/border"
-            android:backgroundTint="@color/white">
+            android:backgroundTint="@color/white"
+            android:orientation="vertical">
+
             <LinearLayout
                 android:id="@+id/info_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:weightSum="1"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/likebtn"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/likebtn">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/clothes"
@@ -36,6 +39,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
+                    android:background="@drawable/border"
                     tools:src="@drawable/codi1" />
 
 
@@ -43,24 +47,46 @@
                     android:id="@+id/clothesinfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
+                    android:layout_weight="1"
                     android:text="123123"
-                    android:layout_weight="1"/>
+                    android:textColor="@color/black" />
             </LinearLayout>
 
-            <ToggleButton
-                android:id="@+id/likebtn"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:checked="false"
-                android:textOff="찜 하기"
-                android:textOn="취소"
-                app:layout_constraintTop_toBottomOf="@id/info_layout"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"/>
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <ToggleButton
+                    android:id="@+id/likebtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:checked="false"
+                    android:gravity="center"
+                    android:textOff="찜 하기"
+                    android:textOn="취소"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="@id/close_btn"
+                    app:layout_constraintTop_toBottomOf="@id/info_layout" />
+
+                <Button
+                    android:id="@+id/close_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="화면 닫기"
+                    android:textColor="@color/black"
+                    android:backgroundTint="@color/gray"
+                    android:clickable="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="@id/likebtn"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/info_layout" />
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 

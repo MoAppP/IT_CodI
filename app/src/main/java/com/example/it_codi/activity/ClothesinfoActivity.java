@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -19,6 +20,7 @@ public class ClothesinfoActivity extends Activity {
     private ImageView iv;
     private TextView tv;
     private ToggleButton btn;
+    private Button btn2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class ClothesinfoActivity extends Activity {
         iv = findViewById(R.id.clothes);
         tv = findViewById(R.id.clothesinfo);
         btn = findViewById(R.id.likebtn);
+        btn2=findViewById(R.id.close_btn);
 
         //set image
         iv.setImageBitmap(clothes.getImg());
@@ -45,7 +48,7 @@ public class ClothesinfoActivity extends Activity {
         //make tag list
         String temp = "";
 
-        temp += String.format("#%s\n", calculateSize(clothes));
+        temp += String.format("#추천 사이즈 : %s\n", calculateSize(clothes));
 
         if(!clothes.getName().equals(""))
             temp += String.format("#%s\n",clothes.getName());
@@ -71,6 +74,10 @@ public class ClothesinfoActivity extends Activity {
             DB.clothesDao().updateClothes(clothes);
         });
 
+        //close_btn
+        btn2.setOnClickListener(
+                view -> {finish();}
+        );
     }
 
     private String calculateSize(Clothes clothes){
