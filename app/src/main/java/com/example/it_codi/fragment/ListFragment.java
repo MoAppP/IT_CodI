@@ -1,5 +1,7 @@
 package com.example.it_codi.fragment;
 
+import android.app.ActivityManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -31,6 +33,7 @@ import com.example.it_codi.database.ClothesDatabase;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.List;
 
 public class ListFragment extends Fragment {
 
@@ -57,6 +60,7 @@ public class ListFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         DB = ClothesDatabase.getInstance(getContext().getApplicationContext());
+
     }
 
     @Override
@@ -315,9 +319,8 @@ public class ListFragment extends Fragment {
     class CheckAddBackGround extends AsyncTask<Integer , Integer , Integer> {
         //초기화 단계에서 사용한다. 초기화관련 코드를 작성했다.
         protected void onPreExecute() {
-            if (isCheckAddLoading)
-                onCancelled();
-            else{
+            if (!isCheckAddLoading){
+                ListLoadingActivity.activity = null;
                 Intent it = new Intent(getActivity(), ListLoadingActivity.class);
                 startActivity(it);
                 isCheckAddLoading = true;
@@ -328,9 +331,24 @@ public class ListFragment extends Fragment {
 //여기서 매개변수 Intger ... values란 values란 이름의 Integer배열이라 생각하면된다.
 //배열이라 여러개를 받을 수 도 있다. ex) excute(100, 10, 20, 30); 이런식으로 전달 받으면 된다.
         protected Integer doInBackground(Integer ... values) {
+
+            int i = 0;
+            while (ListLoadingActivity.activity == null && i <= 100000) {
+               try {
+                   Thread.sleep(1000);
+                   i += 1000;
+                   Log.d("test", Integer.valueOf(i).toString());
+               }
+               catch (Exception e) {
+                   Log.d("test", "?");
+                   break;
+               }
+            }
+
             check_add();
             firstData();
-            Log.d("test", Integer.valueOf(allList.size()).toString()+"allList size");
+            Log.d("test", Integer.valueOf(allList.size()).toString() + "allList size");
+
             return values[0];
         }
 
@@ -342,6 +360,7 @@ public class ListFragment extends Fragment {
 
         //이 Task에서(즉 이 스레드에서) 수행되던 작업이 종료되었을 때 호출됨
         protected void onPostExecute(Integer result) {
+
             adapter.notifyDataSetChanged();
             printAllList();
             printList();
@@ -351,8 +370,21 @@ public class ListFragment extends Fragment {
             printListSs2();
             printListSs3();
             printListSs4();
-            ListLoadingActivity.activity.finish();
+//            ListLoadingActivity.activity.finish();
+            if (ListLoadingActivity.activity != null) {
+                try {
+                    ListLoadingActivity.activity.finish();
+                } catch (Exception e) {
+                    ActivityManager manager = (ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE);
+                    List<ActivityManager.RunningTaskInfo> info = manager.getRunningTasks(1);
+                    ComponentName componentName = info.get(0).topActivity;
+                    String ActivityName = componentName.getShortClassName().substring(1);
+                    if (ActivityName.equals("ListLoadingActivity"))
+                        ListLoadingActivity.activity.finish();
+                }
+            }
             isCheckAddLoading = false;
+
         }
     }
 
