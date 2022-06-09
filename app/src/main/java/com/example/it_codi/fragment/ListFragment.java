@@ -185,7 +185,8 @@ public class ListFragment extends Fragment {
 
     @Override
     public void onDestroy() {
-        checkAddBackGround.cancel(true);
+        if (isCheckAddLoading && checkAddBackGround != null)
+            checkAddBackGround.cancel(true);
         super.onDestroy();
     }
 
