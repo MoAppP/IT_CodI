@@ -14,7 +14,8 @@
         android:usesCleartextTraffic="true" >
         <activity
             android:name=".activity.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,12 +23,17 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.LoadingActivity"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:screenOrientation="portrait"/>
         <activity android:name=".activity.ClothesinfoActivity"
-            android:theme="@android:style/Theme.Dialog" />
-        <activity android:name=".activity.SetupPopupActivity" android:theme="@android:style/Theme.Dialog"/>
+            android:theme="@android:style/Theme.Dialog"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.SetupPopupActivity"
+            android:theme="@android:style/Theme.Dialog"
+            android:screenOrientation="portrait"/>
         <activity android:name=".activity.ListLoadingActivity"
-            android:theme="@style/Theme.AppCompat.Transparent.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.Transparent.NoActionBar"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

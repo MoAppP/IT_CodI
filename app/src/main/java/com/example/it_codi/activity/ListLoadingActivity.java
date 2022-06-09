@@ -32,8 +32,8 @@ public class ListLoadingActivity extends Activity {
 //        onDestroy();
 //    }
 
-//    @Override
-//    public void onBackPressed() {
-//        return;
-//    }
+    @Override
+    public void onBackPressed() {
+        return;
+    }
 }

@@ -51,6 +51,7 @@ public class ListFragment extends Fragment {
     ArrayList<String> list_ss4 = new ArrayList<String>();
 
     ClothesDatabase DB;
+    CheckAddBackGround checkAddBackGround;
 
     boolean isLoading = false;
     boolean isCheckAddLoading = false;
@@ -182,18 +183,25 @@ public class ListFragment extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void onDestroy() {
+        checkAddBackGround.cancel(true);
+        super.onDestroy();
+    }
+
     private void check_connect() {
         boolean typ = list_ty.isEmpty();
         boolean spr = list_ss1.isEmpty();
         boolean sum = list_ss2.isEmpty();
         boolean aut = list_ss3.isEmpty();
         boolean win = list_ss4.isEmpty();
-        if(typ && spr && sum && aut && win){
+        if (typ && spr && sum && aut && win) {
             list.clear();
             adapter.notifyDataSetChanged();
+        } else{
+            checkAddBackGround = new CheckAddBackGround();
+            checkAddBackGround.execute(0);
         }
-        else
-            new CheckAddBackGround().execute(0);
     }
 
     private void check_add() {
